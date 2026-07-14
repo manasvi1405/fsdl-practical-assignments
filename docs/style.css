@@ -1,0 +1,63 @@
+:root {
+    --azure-main: #0ea5e9;
+    --nav-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+    --light-bg: #ffffff;
+    --light-alt: #f0f9ff;
+    --dark-bg: #0f172a;
+    --dark-alt: #1e293b;
+}
+
+body { transition: 0.4s; overflow-x: hidden; scroll-behavior: smooth; }
+body.light-theme { background-color: var(--light-bg); color: #334155; }
+body.dark-theme { background-color: var(--dark-bg); color: #f1f5f9; }
+
+/* REVEAL ANIMATION */
+.reveal {
+    position: relative;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Navbar */
+.navbar { background: var(--nav-gradient) !important; padding: 12px 0; }
+.navbar-brand, .nav-link { color: white !important; font-weight: 500; }
+
+/* Sections */
+.section { padding: 90px 0; }
+body.light-theme .alt-bg { background-color: var(--light-alt); }
+body.dark-theme .alt-bg { background-color: var(--dark-alt); }
+
+.section-title-center { text-align: center; margin-bottom: 50px; position: relative; }
+.section-title-center::after {
+    content: ""; position: absolute; width: 50px; height: 3px;
+    background: var(--azure-main); bottom: -12px; left: 50%; transform: translateX(-50%);
+}
+
+.project-card-large { padding: 45px 30px; height: 100%; min-height: 420px; display: flex; flex-direction: column; justify-content: center; transition: 0.4s; border-radius: 15px; border: 1px solid #e2e8f0; }
+.project-card-large:hover { transform: translateY(-12px); border-color: var(--azure-main); }
+.p-card-header { font-size: 2.2rem; color: var(--azure-main); margin-bottom: 15px; }
+.btn-link-azure { color: var(--azure-main); text-decoration: none; font-weight: bold; margin-top: auto; }
+
+.skills-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.skill-tag { padding: 8px 18px; border-radius: 50px; border: 1px solid var(--azure-main); background: white; font-weight: 500; }
+body.dark-theme .skill-tag { background: transparent; }
+
+.cert-card { display: block; padding: 20px 10px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; color: inherit; text-align: center; transition: 0.3s; height: 100%; }
+.cert-card:hover { background: var(--azure-main); color: white; transform: translateY(-5px); }
+
+.hero-section { height: 100vh; display: flex; align-items: center; }
+.typewriter { border-right: 3px solid white; animation: blink 0.8s infinite; }
+@keyframes blink { 50% { border-color: transparent; } }
+
+.form-control { background: transparent; border: 1px solid #e2e8f0; color: inherit; }
+.text-azure { color: var(--azure-main); }
+/* Buttons */
+.btn-primary-custom { background: var(--nav-gradient); color: white; border-radius: 50px; padding: 12px 30px; border: none; }
+.btn-outline-custom { border: 2px solid var(--azure-main); color: var(--azure-main); border-radius: 50px; padding: 12px 30px; }
+
+@media (min-width: 768px) { .border-end-md { border-right: 2px solid #e2e8f0; } }

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manasvi Patil | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-theme">
+
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm px-lg-5">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#home">Manasvi's Portfolio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+            <button class="btn theme-toggle ms-lg-3" onclick="toggleTheme()">🌙</button>
+        </div>
+    </div>
+</nav>
+
+<section id="home" class="hero-section">
+    <div class="container text-center">
+        <div class="hero-content">
+            <h1 class="display-4 fw-bold">Hi, I'm <span class="typewriter" id="typewriter-text"></span></h1>
+            <h4 class="mt-3 text-secondary">Web Developer | Frontend Developer</h4>
+            <p class="lead mt-4 mx-auto max-width-text">
+                I am a motivated computer engineering student with a strong interest in frontend development and modern web technologies. I enjoy building clean, responsive interfaces and continuously improving my skills.
+            </p>
+            <div class="mt-5">
+                <a href="#projects" class="btn btn-primary-custom me-3">View Projects</a>
+                <a href="assets/resume.pdf" target="_blank" class="btn btn-outline-custom">View Resume</a>
+            </div>
+            <div class="social-icons mt-4">
+                <a href="https://github.com" target="_blank" class="mx-3 text-reset"><i class="fab fa-github fa-2x"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="mx-3 text-reset"><i class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section alt-bg">
+    <div class="container">
+        <h2 class="section-title-center">About Me</h2>
+        <div class="row g-4 mt-2 reveal">
+            <div class="col-md-6">
+                <div class="card h-100 p-4 info-card shadow-sm border-0">
+                    <h4 class="text-azure mb-3"><i class="fas fa-bullseye me-2"></i>Career Goal</h4>
+                    <p>To become a skilled frontend developer contributing to impactful real-world applications while continuously learning new technologies.</p>
+                    <p>Currently learning React.js, Advanced JavaScript, and UI/UX principles.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 p-4 info-card shadow-sm border-0">
+                    <h4 class="text-azure mb-3"><i class="fas fa-history me-2"></i>Timeline</h4>
+                    <ul class="timeline-simple">
+                        <li><strong>BTech Computer Engineering:</strong> 2024–2027 (Pursuing)</li>
+                        <li><strong>Diploma:</strong> 2021–2024</li>
+                        <li><strong>Internship:</strong> Jan 2024 to June 2024</li>
+                        <li><strong>10th Grade:</strong> 2020–2021</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section main-bg">
+    <div class="container">
+        <h2 class="section-title-center">Skills</h2>
+        <div class="row g-5 reveal">
+            <div class="col-md-6 border-end-md">
+                <h4 class="text-center mb-4"><i class="fas fa-laptop-code me-2"></i>Technical Skills</h4>
+                <div class="skills-wrapper">
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">MERN Stack</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center mb-4"><i class="fas fa-users me-2"></i>Soft Skills</h4>
+                <div class="skills-wrapper">
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Teamwork</span>
+                    <span class="skill-tag">Time Management</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section alt-bg">
+    <div class="container">
+        <h2 class="section-title-center">Featured Projects</h2>
+        <div class="row g-4 mt-2 reveal">
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card-large">
+                    <div class="p-card-header"><i class="fas fa-code"></i></div>
+                    <h5>AI Code Analyzer</h5>
+                    <p>An AI-powered tool that analyzes code, identifies errors, and suggests improvements for better performance and readability.</p>
+                    <a href="https://github.com" target="_blank" class="btn-link-azure">Source Code <i class="fas fa-external-link-alt ms-1"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card-large">
+                    <div class="p-card-header"><i class="fas fa-rocket"></i></div>
+                    <h5>Zenith</h5>
+                    <p>A web-based skill development and networking platform built using React.js and Spring Boot with real-time chat.</p>
+                    <a href="https://github.com" target="_blank" class="btn-link-azure">Source Code <i class="fas fa-external-link-alt ms-1"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card-large">
+                    <div class="p-card-header"><i class="fas fa-shopping-bag"></i></div>
+                    <h5>ApnaBazaar</h5>
+                    <p>A Java-based e-commerce application using JSON and DSA principles for cart and order management.</p>
+                    <a href="https://github.com" target="_blank" class="btn-link-azure">Source Code <i class="fas fa-external-link-alt ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience" class="section main-bg">
+    <div class="container">
+        <h2 class="section-title-center">Experience & Certifications</h2>
+        <div class="row g-5 reveal">
+            <div class="col-lg-12">
+                <div class="experience-details">
+                    <h4 class="text-azure mb-3"><i class="fas fa-briefcase me-2"></i> Internship</h4>
+                    <div class="experience-item mb-4 p-4 shadow-sm border-start border-4 border-info">
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <h5>MERN Stack Development</h5>
+                            <span class="text-azure fw-bold">Jan 2024 – June 2024</span>
+                        </div>
+                        <p class="mb-1"><strong>Company:</strong> Sumago Infotech Pvt Ltd</p>
+                        <p>Worked on MERN basics and real-life projects such as e-commerce applications.</p>
+                    </div>
+
+                    <h4 class="text-azure mb-3 mt-5"><i class="fas fa-award me-2"></i> Certifications</h4>
+                    <div class="row g-3">
+                        <div class="col-md-3 col-sm-6">
+                            <a href="assets/certificates/javafullstack.pdf" target="_blank" class="cert-card">
+                                <i class="fas fa-certificate mb-2"></i><br>Udemy: Java Fullstack
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="assets/certificates/genai.pdf" target="_blank" class="cert-card">
+                                <i class="fas fa-certificate mb-2"></i><br>Udemy: Gen AI
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="assets/certificates/dbms.pdf" target="_blank" class="cert-card">
+                                <i class="fas fa-certificate mb-2"></i><br>Coursera: DBMS
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="assets/certificates/accenture.pdf" target="_blank" class="cert-card">
+                                <i class="fas fa-certificate mb-2"></i><br>Accenture Simulation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section alt-bg">
+    <div class="container text-center">
+        <h2 class="section-title-center">Contact Me</h2>
+        <div class="row justify-content-center reveal">
+            <div class="col-md-6">
+                <form class="contact-form p-4 shadow-sm rounded">
+                    <div class="mb-3"><input type="text" class="form-control" placeholder="Name" required></div>
+                    <div class="mb-3"><input type="email" class="form-control" placeholder="Email" required></div>
+                    <div class="mb-3"><textarea class="form-control" rows="4" placeholder="Message" required></textarea></div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-4 text-center border-top main-bg">
+    <p class="mb-1 small">© 2026 Manasvi Patil. Computer Engineering Student.</p>
+    <div class="footer-socials">
+        <a href="https://github.com" target="_blank" class="mx-2 text-reset small"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com" target="_blank" class="mx-2 text-reset small"><i class="fab fa-linkedin"></i></a>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
+
