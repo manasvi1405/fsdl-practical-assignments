@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment Booking</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f2f2f2;
+    }
+
+    .container {
+      width: 400px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .green { background: #4CAF50; }
+    .blue { background: #2196F3; }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Schedule Appointment</h2>
+
+  <input id="name" placeholder="Name">
+  <input id="age" placeholder="Age">
+  <input id="phone" placeholder="Phone">
+  <input id="email" placeholder="Email">
+
+  <select id="doctor">
+    <option>Dr. Sharma</option>
+    <option>Dr. Patel</option>
+  </select>
+
+  <input type="date" id="date">
+  <input type="time" id="time">
+
+  <textarea id="reason" placeholder="Reason"></textarea>
+
+  <button class="green" onclick="book()">Confirm Booking</button>
+
+  <hr>
+
+  <button class="blue" onclick="goToView()">View Appointments</button>
+</div>
+
+<script>
+async function book() {
+  const data = {
+    name: document.getElementById("name").value,
+    age: document.getElementById("age").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    doctor: document.getElementById("doctor").value,
+    date: document.getElementById("date").value,
+    time: document.getElementById("time").value,
+    reason: document.getElementById("reason").value
+  };
+
+  const res = await fetch("/book", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+
+  if (result.success) {
+    alert("✅ Booking Successful!");
+    window.location = "/view";   // 🔥 redirect
+  } else {
+    alert(result.message);
+  }
+}
+
+function goToView() {
+  window.location = "/view";   // 🔥 navigation
+}
+</script>
+
+</body>
+</html>

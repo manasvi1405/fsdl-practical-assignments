@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    //manasvipatil vala mongo 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Feedback Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+
+        /* Form Styling */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        /* Star Rating */
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .stars input { display: none; }
+        .stars label {
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label { color: #f1c40f; }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { background: #2980b9; }
+
+        /* Table Styling */
+        #adminView { display: none; margin-top: 30px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th { background: var(--primary); color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+
+        /* Login Modal */
+        #loginOverlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div style="font-size: 1.5rem; font-weight: bold;">EduFeedback</div>
+    <button onclick="showLogin()" style="background: rgba(255,255,255,0.2);">Admin Login</button>
+</div>
+
+<div class="container" id="formView">
+    <h2>Student Feedback Form</h2>
+    
+    <div class="form-group">
+        <label>Your Name</label>
+        <input id="name" placeholder="Enter your full name">
+    </div>
+
+    <div class="form-group">
+        <label>Subject</label>
+        <select id="subject">
+            <option value="">Select Subject</option>
+            <option value="Data Structures">Data Structures</option>
+            <option value="Operating Systems">Operating Systems</option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Computer Networks">Computer Networks</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Faculty Name</label>
+        <select id="faculty">
+            <option value="">Select Teacher</option>
+            <option value="Dr. Smith">Dr. Smith</option>
+            <option value="Prof. Johnson">Prof. Ganesh Patil</option>
+            <option value="Dr. Williams">Dr. Pratik</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Rating</label>
+        <div class="stars">
+            <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
+            <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
+            <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+            <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
+            <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Comments</label>
+        <textarea id="comment" rows="3" placeholder="Tell us more..."></textarea>
+    </div>
+
+    <button onclick="submitFeedback()" style="width: 100%;">Submit Feedback</button>
+</div>
+
+<div id="loginOverlay">
+    <div class="login-box">
+        <h3>Admin Access</h3>
+        <input type="text" id="adminUser" placeholder="Username" style="margin-bottom:10px;">
+        <input type="password" id="adminPass" placeholder="Password" style="margin-bottom:20px;">
+        <button onclick="verifyLogin()" style="width: 100%;">Login</button>
+        <button onclick="closeLogin()" style="background: #e74c3c; margin-top:10px; width:100%;">Cancel</button>
+    </div>
+</div>
+
+<div class="container" id="adminView">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>All Feedback Records</h2>
+        <button onclick="window.location.reload()" style="background: var(--success);">Logout</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Faculty</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    // Star Rating Helper
+    function getSelectedRating() {
+        const stars = document.getElementsByName('star');
+        for (let star of stars) {
+            if (star.checked) return star.value;
+        }
+        return 0;
+    }
+
+    async function submitFeedback() {
+        const rating = getSelectedRating();
+        const data = {
+            name: document.getElementById("name").value,
+            subject: document.getElementById("subject").value,
+            facultyName: document.getElementById("faculty").value,
+            rating: rating,
+            comment: document.getElementById("comment").value
+        };
+
+        if (!data.name || !data.subject || rating == 0) {
+            alert("Please fill all required fields! ⚠️");
+            return;
+        }
+
+        try {
+            await fetch("http://localhost:5000/feedback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+            alert("Feedback submitted successfully! ✨");
+            location.reload();
+        } catch (err) {
+            alert("Server Error ❌");
+        }
+    }
+
+    // Admin Logic
+    function showLogin() {
+        document.getElementById("loginOverlay").style.display = "flex";
+    }
+
+    function closeLogin() {
+        document.getElementById("loginOverlay").style.display = "none";
+    }
+
+    function verifyLogin() {
+        const user = document.getElementById("adminUser").value;
+        const pass = document.getElementById("adminPass").value;
+
+        if (user === "admin" && pass === "admin@123") {
+            document.getElementById("loginOverlay").style.display = "none";
+            document.getElementById("formView").style.display = "none";
+            document.getElementById("adminView").style.display = "block";
+            loadFeedback();
+        } else {
+            alert("Invalid Credentials! 🛑");
+        }
+    }
+
+    async function loadFeedback() {
+        const res = await fetch("http://localhost:5000/feedback");
+        const data = await res.json();
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+
+        data.forEach(f => {
+            const row = `<tr>
+                <td>${f.name}</td>
+                <td>${f.subject}</td>
+                <td>${f.facultyName}</td>
+                <td style="color: #f1c40f; font-weight:bold;">${f.rating} ★</td>
+                <td>${f.comment}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+</script>
+
+</body>
+</html>

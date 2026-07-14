@@ -1,0 +1,40 @@
+<h2>Book Your Trip</h2>
+
+<form id="bookingForm">
+  <input type="text" placeholder="Name" id="name" required>
+  <input type="email" placeholder="Email" id="email" required>
+  <input type="text" placeholder="Package Name" id="package">
+  <input type="number" placeholder="No. of Persons" id="persons">
+
+  <select id="insurance">
+    <option>No Insurance</option>
+    <option>Travel Insurance (+₹999)</option>
+  </select>
+
+  <input type="number" placeholder="Total Cost ₹" id="cost">
+  <button>Confirm Booking</button>
+</form>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const data = {
+    name: name.value,
+    email: email.value,
+    packageName: package.value,
+    persons: persons.value,
+    insurance: insurance.value,
+    totalCost: cost.value
+  };
+
+  const res = await fetch("/api/bookings", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+  alert(result.message);
+});
+</script>

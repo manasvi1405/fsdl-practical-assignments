@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafarSetu | Premium Travels</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary: #003366;
+        --accent: #ffcc00;
+        --light: #f8f9fa;
+        --dark: #111;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: var(--light);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      /* NAVIGATION */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 8%;
+        background: var(--primary);
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--accent);
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: 0.3s;
+      }
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      /* STATIC HERO SECTION (Replaced Slider) */
+      .hero-static {
+        position: relative;
+        height: 85vh;
+        overflow: hidden;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+      }
+      .hero-static img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        filter: brightness(0.6);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        padding: 20px;
+      }
+      .hero-content h1 {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+      }
+      .promo-badge {
+        background: #d90429;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+
+      /* COUNTERS & INCLUSIONS */
+      .counters {
+        display: flex;
+        justify-content: space-around;
+        padding: 60px 10%;
+        background: white;
+        text-align: center;
+      }
+      .count-item i {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+      .count-item h2 {
+        font-size: 2.2rem;
+        color: #333;
+      }
+
+      .inclusions {
+        padding: 80px 10%;
+        background: #fff;
+      }
+      .inc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        text-align: center;
+      }
+      .inc-box {
+        padding: 30px;
+        border-radius: 15px;
+        background: var(--light);
+        transition: 0.4s;
+        border: 1px solid #eee;
+      }
+      .inc-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .inc-box i {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      /* PACKAGE CARDS */
+      .packages {
+        padding: 80px 10%;
+      }
+      .p-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+      @media (max-width: 992px) {
+        .p-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 650px) {
+        .p-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .p-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: 0.4s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .p-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+      .p-info {
+        padding: 25px;
+      }
+      .p-price {
+        font-size: 1.5rem;
+        color: #2b9348;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .btn-book {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition: 0.3s;
+      }
+      .btn-details {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        background: none;
+      }
+
+      /* DESCRIPTION TOGGLE LOGIC */
+      .details-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.4s ease;
+        font-size: 0.85rem;
+        color: #555;
+        line-height: 1.6;
+      }
+      .details-content.show {
+        max-height: 200px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+        margin-top: 15px;
+      }
+
+      /* BOOKING FORM */
+      .booking-section {
+        background: var(--primary);
+        padding: 80px 10%;
+        color: white;
+      }
+      .form-container {
+        max-width: 650px;
+        margin: auto;
+        background: white;
+        color: #333;
+        padding: 40px;
+        border-radius: 20px;
+      }
+      .form-container input,
+      .form-container select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      .btn-submit {
+        width: 100%;
+        padding: 15px;
+        background: var(--accent);
+        border: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+          url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1600");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 80px 10% 20px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 40px;
+        margin-bottom: 20px;
+      }
+      .footer-col h3 {
+        color: var(--accent);
+        margin-bottom: 15px;
+      }
+      .footer-col h4 {
+        margin-bottom: 15px;
+        border-left: 3px solid var(--accent);
+        padding-left: 10px;
+      }
+      .footer-col p {
+        color: #bbb;
+        line-height: 1.6;
+        font-size: 0.9rem;
+      }
+      .footer-col ul {
+        list-style: none;
+      }
+      .footer-col ul li {
+        margin-bottom: 8px;
+      }
+      .footer-col ul li a {
+        color: #bbb;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+      }
+      .footer-col ul li a:hover {
+        color: var(--accent);
+        padding-left: 5px;
+      }
+      .footer-bottom {
+        text-align: center;
+        color: #666;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">SafarSetu</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#packages">Holidays</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero-static">
+      <img
+        src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1600"
+        alt="Goa Beach"
+      />
+      <div class="hero-content" data-aos="fade-up">
+        <span class="promo-badge">OFFER: 20% OFF FOR GROUPS</span>
+        <h1>Discover Goa</h1>
+        <p>The Pearl of the Orient | Experience Pristine Beaches</p>
+        <br />
+        <a
+          href="#packages"
+          class="btn-book"
+          style="display: inline-block; max-width: 200px"
+          >Explore More</a
+        >
+      </div>
+    </section>
+
+    <section class="counters" data-aos="fade-up">
+      <div class="count-item">
+        <i class="fas fa-users"></i>
+        <h2>5000+</h2>
+        <p>Happy Guests</p>
+      </div>
+      <div class="count-item">
+        <i class="fas fa-plane-departure"></i>
+        <h2>1200+</h2>
+        <p>Trips Completed</p>
+      </div>
+      <div class="count-item">
+        <i class="fas fa-map-marked-alt"></i>
+        <h2>150+</h2>
+        <p>Destinations</p>
+      </div>
+    </section>
+
+    <section id="about" class="inclusions">
+      <h2
+        style="
+          text-align: center;
+          margin-bottom: 50px;
+          font-size: 2.2rem;
+          color: var(--primary);
+        "
+        data-aos="zoom-in"
+      >
+        Our Inclusive Services
+      </h2>
+      <div class="inc-grid">
+        <div class="inc-box" data-aos="fade-right">
+          <i class="fas fa-hotel"></i>
+          <h3>Accommodation</h3>
+          <p>Comfortable hotels cherry-picked by our management team.</p>
+        </div>
+        <div class="inc-box" data-aos="fade-up">
+          <i class="fas fa-utensils"></i>
+          <h3>All Meals</h3>
+          <p>Breakfast, Lunch, and Dinner included. Eat to your heart's content.</p>
+        </div>
+        <div class="inc-box" data-aos="fade-left">
+          <i class="fas fa-bus-alt"></i>
+          <h3>On-tour Transport</h3>
+          <p>Tension-free travel with included rail and road transport.</p>
+        </div>
+        <div class="inc-box" data-aos="fade-right">
+          <i class="fas fa-user-shield"></i>
+          <h3>Tour Managers</h3>
+          <p>Specialized team of 350+ managers for India and World tours.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="packages">
+      <h2
+        style="text-align: center; margin-bottom: 40px; color: var(--primary)"
+        data-aos="fade-down"
+      >
+        Find Your Dream Destination
+      </h2>
+      <div class="p-grid">
+        <div class="p-card" data-aos="fade-up">
+          <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=600" alt="Goa" />
+          <div class="p-info">
+            <h3>Golden Goa Retreat</h3>
+            <p>5 Days / 4 Nights</p>
+            <p class="p-price">₹12,999</p>
+            <div class="details-content" id="det-goa">
+              Enjoy pristine beaches, sunset cruises, and historical churches. Package includes stays in beachside resorts, water sports at Baga, and guided tours of Old Goa.
+            </div>
+            <div class="card-actions">
+              <button class="btn-details" onclick="toggleDetails('det-goa')">Details</button>
+              <a href="#booking" class="btn-book" onclick="selectPkg('Goa Retreat', 12999)">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-card" data-aos="fade-up" data-aos-delay="100">
+          <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=600" alt="Manali" />
+          <div class="p-info">
+            <h3>Mystical Manali</h3>
+            <p>6 Days / 5 Nights</p>
+            <p class="p-price">₹15,500</p>
+            <div class="details-content" id="det-manali">
+              Explore snow-clad peaks, Solang Valley, and Rohtang Pass. Experience river rafting, Hadimba Temple visits, and local strolls through vibrant Himalayan markets.
+            </div>
+            <div class="card-actions">
+              <button class="btn-details" onclick="toggleDetails('det-manali')">Details</button>
+              <a href="#booking" class="btn-book" onclick="selectPkg('Manali', 15500)">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-card" data-aos="fade-up" data-aos-delay="200">
+          <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=600" alt="Kerala" />
+          <div class="p-info">
+            <h3>Kerala Backwaters</h3>
+            <p>7 Days / 6 Nights</p>
+            <p class="p-price">₹18,999</p>
+            <div class="details-content" id="det-kerala">
+              Sail through peaceful backwaters in Alleppey houseboats and tour Munnar tea gardens. Includes wildlife safaris in Periyar and authentic Ayurvedic massages.
+            </div>
+            <div class="card-actions">
+              <button class="btn-details" onclick="toggleDetails('det-kerala')">Details</button>
+              <a href="#booking" class="btn-book" onclick="selectPkg('Kerala', 18999)">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking" class="booking-section">
+      <div class="form-container">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary)">Confirm Your Booking</h2>
+        <form id="bookingForm">
+          <input type="text" id="name" placeholder="Full Name" required />
+          <input type="email" id="email" placeholder="Email Address" required />
+          <select id="pkgSelect" onchange="updatePriceFromSelect()">
+            <option value="0" data-name="None">-- Select Your Package --</option>
+            <option value="12999" data-name="Goa Retreat">Goa Retreat (₹12,999)</option>
+            <option value="15500" data-name="Manali">Manali (₹15,500)</option>
+            <option value="18999" data-name="Kerala">Kerala (₹18,999)</option>
+          </select>
+          <input type="number" id="persons" placeholder="No. of Persons" required min="1" value="1" />
+          <select id="insurance">
+            <option value="No Insurance">No Insurance</option>
+            <option value="Travel Insurance">Travel Insurance (+₹999/person)</option>
+          </select>
+          <p id="costDisplay" style="font-weight: bold; margin-bottom: 15px; color: #2b9348; font-size: 1.2rem;">
+            Total Cost: ₹0
+          </p>
+          <button type="submit" class="btn-submit">CONFIRM BOOKING</button>
+        </form>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>SafarSetu</h3>
+          <p>Making travel easy, inclusive, and memorable since 2010. We specialize in group tours and family holidays across 150+ destinations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#packages">Holidays</a></li>
+            <li><a href="#about">About Our Services</a></li>
+            <li><a href="#booking">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Details</h4>
+          <p>📍 Pune, Maharashtra, India</p>
+          <p>📞 +91 98765 43210</p>
+          <p>✉ contact@safarsetu.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 SafarSetu Travels. All Rights Reserved.
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true });
+
+      // Toggle Details Logic
+      function toggleDetails(id) {
+        const content = document.getElementById(id);
+        content.classList.toggle("show");
+      }
+
+      // Booking Calculations Logic
+      let currentBasePrice = 0;
+
+      function selectPkg(name, price) {
+        const dropdown = document.getElementById("pkgSelect");
+        for (let i = 0; i < dropdown.options.length; i++) {
+          if (dropdown.options[i].getAttribute("data-name") === name) {
+            dropdown.selectedIndex = i;
+            break;
+          }
+        }
+        currentBasePrice = price;
+        calculateTotal();
+      }
+
+      function updatePriceFromSelect() {
+        const dropdown = document.getElementById("pkgSelect");
+        currentBasePrice = parseInt(dropdown.value);
+        calculateTotal();
+      }
+
+      function calculateTotal() {
+        let persons = document.getElementById("persons").value || 1;
+        let ins = document.getElementById("insurance").value === "Travel Insurance" ? 999 : 0;
+        let total = (currentBasePrice + ins) * persons;
+        document.getElementById("costDisplay").innerText = "Total Cost: ₹" + total;
+        return total;
+      }
+
+      document.getElementById("persons").addEventListener("input", calculateTotal);
+      document.getElementById("insurance").addEventListener("change", calculateTotal);
+
+      document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const pkgSelect = document.getElementById("pkgSelect");
+          const data = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            packageName: pkgSelect.options[pkgSelect.selectedIndex].getAttribute("data-name"),
+            persons: document.getElementById("persons").value,
+            insurance: document.getElementById("insurance").value,
+            totalCost: calculateTotal(),
+          };
+
+          const res = await fetch("/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          const result = await res.json();
+          alert(result.message);
+        });
+    </script>
+  </body>
+</html>
